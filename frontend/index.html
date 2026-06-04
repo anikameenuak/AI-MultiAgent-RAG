@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgentIQ — AI Research System</title>
+<link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@300;400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#7C3AED;--cyan:#06B6D4;--pink:#EC4899;--amber:#F59E0B;--green:#10B981;--bg:#05050F;--bg2:#0A0A1A;--border:rgba(255,255,255,0.07);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:#E2E0FF;font-family:'Cabinet Grotesk',sans-serif;min-height:100vh;overflow-x:hidden;}
+.bg-orbs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:0.2;animation:float 8s ease-in-out infinite;}
+.orb1{width:550px;height:550px;background:#7C3AED;top:-150px;left:-100px;animation-delay:0s;}
+.orb2{width:450px;height:450px;background:#06B6D4;top:30%;right:-100px;animation-delay:2s;}
+.orb3{width:400px;height:400px;background:#EC4899;bottom:5%;left:15%;animation-delay:4s;}
+.orb4{width:320px;height:320px;background:#F59E0B;bottom:-50px;right:20%;animation-delay:1.5s;}
+@keyframes float{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-25px) scale(1.04);}}
+.grid-bg{position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(124,58,237,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,0.035) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.wrap{position:relative;z-index:1;}
+nav{display:flex;align-items:center;justify-content:space-between;padding:18px 60px;border-bottom:1px solid var(--border);backdrop-filter:blur(20px);background:rgba(5,5,15,0.65);position:sticky;top:0;z-index:100;}
+.logo{font-weight:800;font-size:21px;letter-spacing:-0.5px;background:linear-gradient(135deg,#A78BFA,#67E8F9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-pills{display:flex;gap:8px;}
+.np{padding:5px 13px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:0.4px;border:1px solid;}
+.np1{background:rgba(124,58,237,0.14);border-color:rgba(124,58,237,0.4);color:#A78BFA;}
+.np2{background:rgba(6,182,212,0.11);border-color:rgba(6,182,212,0.35);color:#67E8F9;}
+.np3{background:rgba(16,185,129,0.11);border-color:rgba(16,185,129,0.35);color:#6EE7B7;}
+.np4{background:rgba(245,158,11,0.11);border-color:rgba(245,158,11,0.35);color:#FCD34D;}
+.status{display:flex;align-items:center;gap:6px;font-size:12px;color:#6EE7B7;font-weight:600;}
+.pulse{width:7px;height:7px;border-radius:50%;background:#10B981;animation:dp 1.5s infinite;}
+@keyframes dp{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(16,185,129,0.5);}50%{opacity:.7;box-shadow:0 0 0 7px rgba(16,185,129,0);}}
+.hero{padding:80px 60px 50px;max-width:1200px;margin:0 auto;}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.38);border-radius:999px;padding:7px 18px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#A78BFA;margin-bottom:28px;}
+.hero-h{font-size:72px;font-weight:800;line-height:1.0;letter-spacing:-3px;margin-bottom:22px;}
+.hero-h .l1{color:#fff;display:block;}
+.hero-h .l2{display:block;background:linear-gradient(90deg,#A78BFA 0%,#67E8F9 35%,#F9A8D4 65%,#FCD34D 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% auto;animation:gs 4s linear infinite;}
+@keyframes gs{0%{background-position:0% center;}100%{background-position:200% center;}}
+.hero-p{font-size:17px;color:#6B63A0;font-weight:300;max-width:580px;line-height:1.75;margin-bottom:48px;}
+.pipeline{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:60px;}
+.pn{display:flex;align-items:center;gap:10px;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;transition:transform .2s;cursor:default;}
+.pn:hover{transform:translateY(-3px);}
+.pn1{background:rgba(124,58,237,0.14);border:1px solid rgba(124,58,237,0.4);color:#A78BFA;}
+.pn2{background:rgba(6,182,212,0.11);border:1px solid rgba(6,182,212,0.38);color:#67E8F9;}
+.pn3{background:rgba(245,158,11,0.11);border:1px solid rgba(245,158,11,0.38);color:#FCD34D;}
+.pn4{background:rgba(236,72,153,0.11);border:1px solid rgba(236,72,153,0.38);color:#F9A8D4;}
+.pnum{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;}
+.pn1 .pnum{background:rgba(124,58,237,0.35);}
+.pn2 .pnum{background:rgba(6,182,212,0.30);}
+.pn3 .pnum{background:rgba(245,158,11,0.30);}
+.pn4 .pnum{background:rgba(236,72,153,0.30);}
+.parr{color:rgba(255,255,255,0.15);font-size:20px;padding:0 2px;}
+.input-sec{max-width:1200px;margin:0 auto;padding:0 60px 60px;}
+.input-card{background:rgba(10,10,26,0.85);border:1px solid rgba(124,58,237,0.22);border-radius:20px;padding:34px;backdrop-filter:blur(20px);box-shadow:0 0 60px rgba(124,58,237,0.07),inset 0 1px 0 rgba(255,255,255,0.04);}
+.irow{display:flex;gap:14px;align-items:flex-end;}
+.iwrap{flex:1;}
+.ilabel{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#4A4070;margin-bottom:10px;}
+input.qi{width:100%;background:rgba(5,5,15,0.75);border:1.5px solid rgba(255,255,255,0.07);border-radius:12px;padding:15px 20px;font-family:'Cabinet Grotesk',sans-serif;font-size:16px;color:#E2E0FF;outline:none;transition:all .25s;}
+input.qi::placeholder{color:#2E2850;}
+input.qi:focus{border-color:rgba(124,58,237,0.65);box-shadow:0 0 0 4px rgba(124,58,237,0.12),0 0 25px rgba(124,58,237,0.12);background:rgba(10,5,28,0.9);}
+.rbtn{background:linear-gradient(135deg,#7C3AED,#5B21B6);color:#fff;border:none;border-radius:12px;padding:15px 32px;font-family:'Cabinet Grotesk',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .25s;white-space:nowrap;box-shadow:0 4px 22px rgba(124,58,237,0.42);position:relative;overflow:hidden;}
+.rbtn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.14),transparent);opacity:0;transition:opacity .25s;}
+.rbtn:hover{transform:translateY(-3px);box-shadow:0 10px 38px rgba(124,58,237,0.58);}
+.rbtn:hover::before{opacity:1;}
+.rbtn:disabled{opacity:.55;cursor:not-allowed;transform:none;}
+.loading{display:none;max-width:1200px;margin:0 auto;padding:30px 60px;}
+.lcard{background:rgba(10,10,26,0.85);border:1px solid rgba(124,58,237,0.2);border-radius:20px;padding:40px;text-align:center;backdrop-filter:blur(20px);}
+.spinner{width:50px;height:50px;border:3px solid rgba(124,58,237,0.18);border-top-color:#7C3AED;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 18px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.ltext{font-size:15px;color:#6B63A0;}
+.asteps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px;}
+.astep{padding:20px 14px;border-radius:14px;border:1px solid;text-align:center;transition:all .4s;opacity:.25;}
+.astep.active{opacity:1;transform:translateY(-5px);}
+.astep.done{opacity:.65;}
+.as1{background:rgba(124,58,237,0.08);border-color:rgba(124,58,237,0.25);}
+.as2{background:rgba(6,182,212,0.07);border-color:rgba(6,182,212,0.22);}
+.as3{background:rgba(245,158,11,0.07);border-color:rgba(245,158,11,0.22);}
+.as4{background:rgba(236,72,153,0.07);border-color:rgba(236,72,153,0.22);}
+.asicon{font-size:26px;margin-bottom:8px;}
+.asname{font-size:13px;font-weight:700;margin-bottom:4px;}
+.as1 .asname{color:#A78BFA;}.as2 .asname{color:#67E8F9;}.as3 .asname{color:#FCD34D;}.as4 .asname{color:#F9A8D4;}
+.asstatus{font-size:11px;color:#4A4070;font-weight:500;}
+.results{display:none;max-width:1200px;margin:0 auto;padding:0 60px 80px;}
+.rh{display:flex;align-items:center;gap:14px;margin-bottom:28px;}
+.rtitle{font-size:24px;font-weight:800;color:#fff;letter-spacing:-.5px;}
+.sbadge{background:rgba(16,185,129,0.14);border:1px solid rgba(16,185,129,0.32);border-radius:999px;padding:5px 14px;font-size:11px;font-weight:700;color:#6EE7B7;letter-spacing:1px;text-transform:uppercase;}
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px;}
+.sbox{border-radius:16px;padding:22px 18px;border:1px solid;position:relative;overflow:hidden;}
+.sbox::after{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;opacity:.14;}
+.sb1{background:rgba(124,58,237,0.08);border-color:rgba(124,58,237,0.25);}
+.sb1::after{background:#7C3AED;}
+.sb2{background:rgba(6,182,212,0.07);border-color:rgba(6,182,212,0.22);}
+.sb2::after{background:#06B6D4;}
+.sb3{background:rgba(245,158,11,0.07);border-color:rgba(245,158,11,0.22);}
+.sb3::after{background:#F59E0B;}
+.sb4{background:rgba(236,72,153,0.07);border-color:rgba(236,72,153,0.22);}
+.sb4::after{background:#EC4899;}
+.snum{font-size:42px;font-weight:800;line-height:1;margin-bottom:6px;font-variant-numeric:tabular-nums;}
+.sb1 .snum{color:#A78BFA;}.sb2 .snum{color:#67E8F9;}.sb3 .snum{color:#FCD34D;}.sb4 .snum{color:#F9A8D4;}
+.slbl{font-size:11px;font-weight:700;color:#4A4070;text-transform:uppercase;letter-spacing:.8px;}
+.ogrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.ocard{border-radius:18px;border:1px solid;overflow:hidden;}
+.oc1{background:rgba(124,58,237,0.06);border-color:rgba(124,58,237,0.2);}
+.oc2{background:rgba(6,182,212,0.05);border-color:rgba(6,182,212,0.18);}
+.och{display:flex;align-items:center;gap:10px;padding:15px 20px;border-bottom:1px solid;cursor:pointer;user-select:none;transition:background .2s;}
+.oc1 .och{border-color:rgba(124,58,237,0.2);}
+.oc2 .och{border-color:rgba(6,182,212,0.18);}
+.oc1 .och:hover{background:rgba(124,58,237,0.08);}
+.oc2 .och:hover{background:rgba(6,182,212,0.07);}
+.odot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.oc1 .odot{background:#7C3AED;}.oc2 .odot{background:#06B6D4;}
+.otitle{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;flex:1;}
+.oc1 .otitle{color:#A78BFA;}.oc2 .otitle{color:#67E8F9;}
+.otgl{font-size:18px;color:#3A3060;transition:transform .3s;}
+.otgl.open{transform:rotate(180deg);}
+.obody{padding:18px;font-size:13.5px;line-height:1.85;color:#9B93C8;font-weight:300;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;padding-top:0;padding-bottom:0;}
+.obody.open{max-height:480px;padding:18px;overflow-y:auto;}
+.fcard{border-radius:20px;overflow:hidden;border:1px solid rgba(236,72,153,0.28);background:rgba(236,72,153,0.04);box-shadow:0 0 50px rgba(236,72,153,0.07);}
+.fhdr{background:linear-gradient(90deg,rgba(124,58,237,0.2),rgba(6,182,212,0.14),rgba(236,72,153,0.2));border-bottom:1px solid rgba(236,72,153,0.2);padding:17px 24px;display:flex;align-items:center;gap:12px;}
+.fdots{display:flex;gap:6px;}
+.fdot{width:10px;height:10px;border-radius:50%;}
+.fdot:nth-child(1){background:#EC4899;}.fdot:nth-child(2){background:#F59E0B;}.fdot:nth-child(3){background:#10B981;}
+.ftitle{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#F9A8D4;flex:1;}
+.frev{background:rgba(16,185,129,0.14);border:1px solid rgba(16,185,129,0.3);border-radius:999px;padding:4px 12px;font-size:10px;font-weight:700;color:#6EE7B7;letter-spacing:1px;text-transform:uppercase;}
+.fbody{padding:30px;font-size:15.5px;line-height:1.9;color:#E2E0FF;font-weight:300;}
+.fbody h1,.fbody h2{color:#fff;font-weight:700;margin:1.2em 0 .5em;}
+.fbody h2{font-size:18px;color:#A78BFA;}
+.fbody h3{font-size:15px;color:#67E8F9;margin:1em 0 .4em;}
+.fbody p{margin-bottom:.8em;}
+.fbody ul,.fbody ol{padding-left:1.5em;margin-bottom:.8em;}
+.fbody li{margin-bottom:.3em;color:#C4BFEE;}
+.fbody strong{color:#fff;font-weight:600;}
+.errbox{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:14px;padding:18px 22px;color:#FCA5A5;font-size:14px;margin-top:14px;}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(124,58,237,0.3);border-radius:3px;}
+</style>
+</head>
+<body>
+<div class="bg-orbs">
+  <div class="orb orb1"></div><div class="orb orb2"></div>
+  <div class="orb orb3"></div><div class="orb orb4"></div>
+</div>
+<div class="grid-bg"></div>
+<div class="wrap">
+  <nav>
+    <div class="logo">⚡ AgentIQ</div>
+    <div class="nav-pills">
+      <span class="np np1">LangGraph</span>
+      <span class="np np2">Groq LLaMA 3.3</span>
+      <span class="np np3">ChromaDB RAG</span>
+      <span class="np np4">DuckDuckGo</span>
+    </div>
+    <div class="status"><div class="pulse"></div>System Online</div>
+  </nav>
+
+  <div class="hero">
+    <div class="eyebrow"><div class="pulse"></div>Multi-Agent AI Research</div>
+    <div class="hero-h">
+      <span class="l1">The Future of</span>
+      <span class="l2">AI-Powered Research</span>
+    </div>
+    <p class="hero-p">Four specialized AI agents collaborate in real-time — planning, researching the web, writing structured reports, and critically refining every word.</p>
+    <div class="pipeline">
+      <div class="pn pn1"><div class="pnum">1</div>Planner Agent</div>
+      <div class="parr">→</div>
+      <div class="pn pn2"><div class="pnum">2</div>Researcher Agent</div>
+      <div class="parr">→</div>
+      <div class="pn pn3"><div class="pnum">3</div>Writer Agent</div>
+      <div class="parr">→</div>
+      <div class="pn pn4"><div class="pnum">4</div>Critic Agent</div>
+    </div>
+  </div>
+
+  <div class="input-sec">
+    <div class="input-card">
+      <div class="irow">
+        <div class="iwrap">
+          <div class="ilabel">Your Research Query</div>
+          <input class="qi" id="qi" type="text" placeholder="e.g. How does GPT-4 differ from GPT-3.5 in reasoning?" onkeydown="if(event.key==='Enter')run()"/>
+        </div>
+        <button class="rbtn" id="rbtn" onclick="run()">⚡ Run Agents</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="loading" id="loading">
+    <div class="lcard">
+      <div class="spinner"></div>
+      <div class="ltext" id="ltext">Initializing agents...</div>
+      <div class="asteps">
+        <div class="astep as1" id="st1"><div class="asicon">🧠</div><div class="asname">Planner</div><div class="asstatus" id="ss1">Waiting</div></div>
+        <div class="astep as2" id="st2"><div class="asicon">🔍</div><div class="asname">Researcher</div><div class="asstatus" id="ss2">Waiting</div></div>
+        <div class="astep as3" id="st3"><div class="asicon">✍️</div><div class="asname">Writer</div><div class="asstatus" id="ss3">Waiting</div></div>
+        <div class="astep as4" id="st4"><div class="asicon">🎯</div><div class="asname">Critic</div><div class="asstatus" id="ss4">Waiting</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="results" id="results">
+    <div class="rh"><div class="rtitle">Research Complete</div><div class="sbadge">✓ Success</div></div>
+    <div class="sgrid">
+      <div class="sbox sb1"><div class="snum">4</div><div class="slbl">Agents Used</div></div>
+      <div class="sbox sb2"><div class="snum" id="st-steps">0</div><div class="slbl">Plan Steps</div></div>
+      <div class="sbox sb3"><div class="snum" id="st-rw">0</div><div class="slbl">Research Words</div></div>
+      <div class="sbox sb4"><div class="snum" id="st-ow">0</div><div class="slbl">Output Words</div></div>
+    </div>
+    <div class="ogrid">
+      <div class="ocard oc1">
+        <div class="och" onclick="tog('plan')"><div class="odot"></div><div class="otitle">Execution Plan</div><div class="otgl" id="tgl-plan">▾</div></div>
+        <div class="obody" id="bd-plan"></div>
+      </div>
+      <div class="ocard oc2">
+        <div class="och" onclick="tog('research')"><div class="odot"></div><div class="otitle">Research Data</div><div class="otgl" id="tgl-research">▾</div></div>
+        <div class="obody" id="bd-research"></div>
+      </div>
+    </div>
+    <div class="fcard">
+      <div class="fhdr">
+        <div class="fdots"><div class="fdot"></div><div class="fdot"></div><div class="fdot"></div></div>
+        <div class="ftitle">Final Output — Writer + Critic Agents</div>
+        <div class="frev">✓ Reviewed</div>
+      </div>
+      <div class="fbody" id="fout"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function tog(id){
+  document.getElementById('bd-'+id).classList.toggle('open');
+  document.getElementById('tgl-'+id).classList.toggle('open');
+}
+function setstep(n,s){
+  const el=document.getElementById('st'+n),ss=document.getElementById('ss'+n);
+  el.classList.remove('active','done');
+  if(s==='active'){el.classList.add('active');ss.textContent='Running...';}
+  else if(s==='done'){el.classList.add('done');ss.textContent='Done ✓';}
+  else{ss.textContent='Waiting';}
+}
+function md(t){
+  return t
+    .replace(/^### (.+)$/gm,'<h3>$1</h3>')
+    .replace(/^## (.+)$/gm,'<h2>$1</h2>')
+    .replace(/^# (.+)$/gm,'<h1>$1</h1>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/^\* (.+)$/gm,'<li>$1</li>')
+    .replace(/^(\d+)\. (.+)$/gm,'<li>$2</li>')
+    .replace(/\n\n/g,'</p><p>')
+    .replace(/^(?!<[hpuol])(.+)$/gm,'<p>$1</p>');
+}
+async function run(){
+  const q=document.getElementById('qi').value.trim();
+  if(!q){document.getElementById('qi').focus();return;}
+  const btn=document.getElementById('rbtn');
+  btn.disabled=true;btn.textContent='⏳ Running...';
+  document.getElementById('loading').style.display='block';
+  document.getElementById('results').style.display='none';
+  [1,2,3,4].forEach(i=>setstep(i,'waiting'));
+  const steps=[[1,'Planning your query...'],[2,'Searching web + RAG...'],[3,'Writing report...'],[4,'Critic reviewing...']];
+  let si=0;
+  const iv=setInterval(()=>{
+    if(si>0)setstep(steps[si-1][0],'done');
+    if(si<steps.length){setstep(steps[si][0],'active');document.getElementById('ltext').textContent=steps[si][1];si++;}
+  },3000);
+  try{
+    const res=await fetch('http://localhost:8000/run',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:q})});
+    clearInterval(iv);
+    [1,2,3,4].forEach(i=>setstep(i,'done'));
+    if(!res.ok)throw new Error('Server error '+res.status);
+    const d=await res.json();
+    const plan=d.plan||'',research=d.research||'',final=d.final||'';
+    document.getElementById('st-steps').textContent=plan.split('\n').filter(l=>l.trim()&&/^\d/.test(l.trim())).length;
+    document.getElementById('st-rw').textContent=research.split(/\s+/).filter(Boolean).length;
+    document.getElementById('st-ow').textContent=final.split(/\s+/).filter(Boolean).length;
+    document.getElementById('bd-plan').innerHTML=md(plan);
+    document.getElementById('bd-research').innerHTML=research?md(research):'<p style="color:#4A4070">No data.</p>';
+    document.getElementById('fout').innerHTML=md(final);
+    document.getElementById('loading').style.display='none';
+    document.getElementById('results').style.display='block';
+  }catch(e){
+    clearInterval(iv);
+    document.getElementById('loading').style.display='none';
+    document.getElementById('results').style.display='block';
+    document.getElementById('fout').innerHTML='<div class="errbox">⚠️ '+e.message+'<br><br>Make sure backend is running: <code>uvicorn api:app --reload --port 8000</code></div>';
+  }
+  btn.disabled=false;btn.textContent='⚡ Run Agents';
+}
+</script>
+</body>
+</html>
