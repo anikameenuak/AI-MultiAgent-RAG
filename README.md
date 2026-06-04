@@ -5,7 +5,22 @@ A production-grade multi-agent AI pipeline built with LangGraph, Groq LLaMA 3.3,
 
 🚀 Live Demo
 
-Run locally — see setup instructions below.
+# 🤖 AI Multi-Agent RAG System
+
+🚀 Live Demo:
+https://ai-multiagent-rag-b4v8ge9fallau7mi4mt7az.streamlit.app/
+
+📂 GitHub Repository:
+https://github.com/anikameenuak/AI-MultiAgent-RAG
+
+## Features
+- Multi-Agent Architecture
+- LangGraph Workflow
+- RAG with ChromaDB
+- Streamlit UI
+- Planner Agent
+- Research Agent
+- Writer Agent
 
 
 🧠 What It Does
