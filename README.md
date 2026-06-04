@@ -113,7 +113,7 @@ streamlit
 python-dotenv
 
 👩‍💻 Author
-Anika — AI/ML Engineering Student
+Anika Meenu AK
 GitHub: @anikameenuak
 
 📄 License
