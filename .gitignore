@@ -16,3 +16,13 @@ chroma_db/
 
 # Logs
 *.log
+# Environment
+.env
+venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# ChromaDB
+vector_db/
